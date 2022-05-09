@@ -94,6 +94,17 @@ Addressing domain gateway behaviour
 
 The representation of an IPv4 address in AD#1 in the path list does not have to be in cleartext. E.g the ADGW could XOR the address with a secret key shared among all the ADGWs between the two domains. The only requirement is that any of the ADGWs on a domains edge can transform the address back to it's original form. For all other ADGWs the AD#1 address is a opaque 32-bit tag.
 
+### ADGW behaviour - header insertion
+
+In the case where an ADGW is connecting a RFC1918 domain to the global Internet, replacing a NAT.
+Hosts are unchanged, and send the packets to the ADGW, acting as a default router.
+
+The ADGW has an interface in the RFC1918 domain (AD-INT) and an interface in the global addressing domain (AD-EXT). When receiving a packet on the AD-INT interface, a recourd route extension header (RREH) is inserted in the packet and the original source address (from the RFC1918 domain) is added as the first entry in the RREH. The source address in the packet is then replaced with the ADGW's address on the interface connecting to AD-EXT. The packet is then forwarded normally using destination based forwarding using the destination address.
+
+When a packet is received in the other direction, on the interface connecting to the AD-EXT domain. The packet is destined to the ADGW's address on the AD-EXT interface. The packet contains a source routing header. The packet's destination address is rewritten with the address from the source routing header.
+
+
+
 Interactions with DNS
 ---------------------
 Something akin to the A6 object?
