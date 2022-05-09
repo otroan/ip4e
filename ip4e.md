@@ -6,7 +6,7 @@ date: 2022-05-09
 category: exp
 
 ipr: trust200902
-area: General
+area: Internet
 workgroup: Intarea Working Group
 keyword: Internet-Draft
 
@@ -37,19 +37,11 @@ informative:
 
 
 --- abstract
-IP4E 
+IP4E is an alternative solution to IPv6. A "what if". What if we had followed this path instead of pursuing IPv6? IP4E connects addressing domains by doing recording route in the forwarding direction and source routing in the return direction. A host or the first addressing domain gateway (ADGW) inserts a record route header, each ADGW on the path inserts a new record route entry as the packet traverses addressing domains. When the packet arrives at the final destination, the record route is reversed and copied to a source routing header in the reply packet. The response packet is then source routed back to the sender. Ensuring that the packet will traverse the same set of addressing domains as in the forward direction.
 
-NAT (Network Address Translator) Traversal may require TURN
-(Traversal Using Relays around NAT) functionality in certain
-cases that are not unlikely to occur.  There is little
-incentive to deploy TURN servers, except by those who need
-them — who may not be in a position to deploy a new protocol
-on an Internet-connected node, in particular not one with
-deployment requirements as high as those of TURN.
+As the solution is stateless an addressing domain may have multiple ADGWs and it will not matter through which ADGW a packet enters.
 
-"STUN/TURN using PHP in Despair" is a highly deployable
-protocol for obtaining TURN-like functionality, while also
-providing the most important function of STUN.
+
 
 --- middle
 
@@ -79,6 +71,7 @@ Requirements
 - No state in the network
 - Traffic should not have to be symmetrical (forward and reverse traffic follows the same path)
 - Backwards compatible with IPv4
+- Scale to indefinite number of hosts and networks
 
 Solution
 ========
