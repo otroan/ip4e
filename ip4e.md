@@ -111,7 +111,8 @@ Something akin to the A6 object?
 
 As long as the IP4e AD has a route towards the global Internet, a host can use DNS as normal, resolve an A record and construct a normal IP packet. The ADGW will insert a record route in the packet with the internal host's address, and itself as a source address. With the global address in the destination address of the packet.
 
-When the packet is received by the destination (or it's last host ADGW) the 
+It's perfectly possible to represent a whole path in DNS. I.e a host in a RFC1918 domain sitting behind a global address would be represented as a path-list of {a.b.c.d, 192.168.0.1}.
+One could also imagine coming up with some solution where an IP4E path list was represented as IPv6 addresses. Either in DNS or perhaps also as IPv6 packets to the host / application. Where the last ADGW would translate the IP4 packet to an IPv6 packet.
 
 Routing
 -------
